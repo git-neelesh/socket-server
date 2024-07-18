@@ -1,14 +1,15 @@
-const express = require('express');
+import express from 'express';
+import {createServer} from 'node:http';
+import { Server } from 'socket.io';
+
 const app = express();
-
-//app.use(express.static(__dirname + '/public'));
-
-const server = require('http').Server(app);
-const io = require('socket.io')(server, {
+const server = createServer(app);
+const io = new Server(server, {
     cors: {
         origin: "*"
     }
 });
+
 io.on("connection", (socketIo) => {
     console.log("A new client connected");
     socketIo.on("disconnect", () => {
@@ -20,3 +21,6 @@ io.on("connection", (socketIo) => {
     });
   });
 
+  server.listen(3000, () => {
+    console.log("Server started");
+  });
