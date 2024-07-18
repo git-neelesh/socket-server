@@ -9,7 +9,7 @@ const io = new Server(server, {
         origin: "*"
     }
 });
-
+console.log("Script is working");
 io.on("connection", (socketIo) => {
     console.log("A new client connected");
     socketIo.on("disconnect", () => {
@@ -21,6 +21,6 @@ io.on("connection", (socketIo) => {
     });
   });
 
-  server.listen(3000, () => {
+  server.listen(8080, () => {
     console.log("Server started");
   });
