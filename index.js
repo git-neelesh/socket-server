@@ -1,37 +1,14 @@
-/* var express = require("express");
+const express = require('express');
 const app = express();
-var server = require("http").createServer(app);
-var socketIo = require("socket.io");
-const io = socketIo().listen(server);
 
-io.on("connection", () => {
-  console.log("A new client connected");
-  socketIo.on("disconnect", () => {
-    console.log("disconnected");
-  });
-  socketIo.on("getGeolocation", (data) => {
-    console.log(data);
-    io.emit("geolocation", data);
-  });
-});
+//app.use(express.static(__dirname + '/public'));
 
-server.listen(3000, () => {
-  console.log("Server started");
-});
- */
-
-import express from 'express';
-import {createServer} from 'node:http';
-import { Server } from 'socket.io';
-
-const app = express();
-const server = createServer(app);
-const io = new Server(server, {
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
     cors: {
         origin: "*"
     }
 });
-
 io.on("connection", (socketIo) => {
     console.log("A new client connected");
     socketIo.on("disconnect", () => {
@@ -43,6 +20,3 @@ io.on("connection", (socketIo) => {
     });
   });
 
-  server.listen(3000, () => {
-    console.log("Server started");
-  });
